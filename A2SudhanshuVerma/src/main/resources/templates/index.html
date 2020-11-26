@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="hhtp://www.thymleaf.org" >
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<style>
+body {
+background-color: powderblue;
+ background-image: url("restro.jpg");
+}
+h1   {color: blue;}
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+td, th {
+	border: 2px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+</style>
+<body>
+<h1 style="text-align: center;">ADD YOUR FAVOURITE RESTRO LIST</h1>
+
+	<form method="post" action="" th:action="@{/insertRestroList}"
+		th:object="${restro}">
+		ID: <input type="text" name="id" th:field="*{id}" /><br>
+		Name: <input type="text" name="name" th:field="*{name}" /><br>
+		Review: <input type="text" name="review" th:field="*{review}" /><br>
+		ReviewDate: <input type="date" name="reviewDate" th:field="*{reviewDate}" /><br>
+		reviewTime:<input type="time" name="reviewTime" th:field="*{reviewTime}" />
+			<br> <input type="submit" value="Add restro" />
+	</form>
+	
+	<h1 style="text-align: center;">HERE IS YOUR FAVOURITE LIST!</h1>
+	<table th:if="${restroList != null  AND restroList != ' ' }">
+		<tr>
+			<td>ID</td>
+			<td>EDIT YOUR CHOICE</td>
+			<td>DELETE YOUR CHOICE</td>
+			<td>NAME</td>
+			<td>REVIEW</td>
+			<td>REVIEW DATE</td>
+			<td>REVIEW TIME</td>
+			
+		</tr>
+		<tr th:each="s : ${restroList}">
+
+			<td th:text="${s.id} "></td>
+			<td><a th:href="@{/editRestaurantList/}+${s.id}">Edit</a></td>
+			<td><a th:href="@{/deleteRestroList/}+${s.id}">Delete</a></td>
+			<td th:text="${s.name} "></td>
+			<td th:text="${s.review} "></td>
+			<td th:text="${s.reviewDate} "></td>
+			<td th:text="${s.reviewTime} "></td>
+		
+		</tr>
+	</table>
+</body>
+</html>
